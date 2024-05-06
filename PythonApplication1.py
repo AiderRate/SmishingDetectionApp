@@ -1,4 +1,5 @@
 #Loading Data     |--------------------------------------------------------
+import pickle
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -60,7 +61,7 @@ model.fit(X_train_features, Y_train)
 prediction_on_training_data = model.predict(X_train_features)
 accuracy_on_training_data = accuracy_score(Y_train, prediction_on_training_data)
 
-print('Accuracy on training data: ',accuracy_on_training_data)
+'''print('Accuracy on training data: ',accuracy_on_training_data)
 
 prediction_on_test_data = model.predict(X_test_features)
 accuracy_on_test_data = accuracy_score(Y_test, prediction_on_test_data)
@@ -85,7 +86,7 @@ else:
 
 print()
 print("|-------------------------------------------------------------------")
-print()
+print()'''
 
 # Load the CSV file containing text messages
 input_messages_df = pd.read_csv('input_messages.csv')
@@ -108,7 +109,13 @@ output_df = pd.DataFrame({'Message': input_messages, 'Prediction': prediction_la
 # Write the DataFrame to a new CSV file
 output_df.to_csv('output_predictions.csv', index=False)
 
-print("Predictions saved to 'output_predictions.csv'")    
+#print("Predictions saved to 'output_predictions.csv'")    
+
+with open('model_pickle','wb') as f:
+    pickle.dump(model,f)
+    
+with open('vectorizer_pickle','wb') as f:
+    pickle.dump(feature_extraction,f)
 
 
 
